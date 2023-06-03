@@ -1,0 +1,49 @@
+({
+    @required this.fragmentContext,
+  });
+
+  final _TimePickerFragmentContext fragmentContext;
+
+  @override
+  Widget build(BuildContext context) {
+    final MaterialLocalizations localizations = MaterialLocalizations.of(context);
+    final TextStyle minuteStyle = fragmentContext.mode == _TimePickerMode.minute
+        ? fragmentContext.activeStyle
+        : fragmentContext.inactiveStyle;
+    final String formattedMinute = localizations.formatMinute(fragmentContext.selectedTime);
+    final TimeOfDay nextMinute = fragmentContext.selectedTime.replacing(
+      minute: (fragmentContext.selectedTime.minute + 1) % TimeOfDay.minutesPerHour,
+    );
+    final String formattedNextMinute = localizations.formatMinute(nextMinute);
+    final TimeOfDay previousMinute = fragmentContext.selectedTime.replacing(
+      minute: (fragmentContext.selectedTime.minute - 1) % TimeOfDay.minutesPerHour,
+    );
+    final String formattedPreviousMinute = localizations.formatMinute(previousMinute);
+
+    return Semantics(
+      excludeSemantics: true,
+      hint: localizations.timePickerMinuteModeAnnouncement,
+      value: formattedMinute,
+      increasedValue: formattedNextMinute,
+      onIncrease: () {
+        fragmentContext.onTimeChange(nextMinute);
+      },
+      decreasedValue: formattedPreviousMinute,
+      onDecrease: () {
+        fragmentContext.onTimeChange(previousMinute);
+      },
+      child: ConstrainedBox(
+        constraints: _kMinTappableRegion,
+        child: Material(
+          type: MaterialType.transparency,
+          child: InkWell(
+            onTap: Feedback.wrapForTap(() => fragmentContext.onModeChange(_TimePickerMode.minute), context),
+            child: Text(formattedMinute, style: minuteStyle, textAlign: TextAlign.start, textScaleFactor: 1.0),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Provides time picker head

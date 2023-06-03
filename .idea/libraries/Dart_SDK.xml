@@ -1,0 +1,30 @@
+s.
+  final Color dialogBackgroundColor;
+
+  /// The color of the selected tab indicator in a tab bar.
+  final Color indicatorColor;
+
+  /// The color to use for hint text or placeholder text, e.g. in
+  /// [TextField] fields.
+  final Color hintColor;
+
+  /// The color to use for input validation errors, e.g. in [TextField] fields.
+  final Color errorColor;
+
+  /// The color used to highlight the active states of toggleable widgets like
+  /// [Switch], [Radio], and [Checkbox].
+  final Color toggleableActiveColor;
+
+  /// Text with a color that contrasts with the card and canvas colors.
+  final TextTheme textTheme;
+
+  /// A text theme that contrasts with the primary color.
+  final TextTheme primaryTextTheme;
+
+  /// A text theme that contrasts with the accent color.
+  final TextTheme accentTextTheme;
+
+  /// The default [InputDecoration] values for [InputDecorator], [TextField],
+  /// and [TextFormField] are based on this theme.
+  ///
+ 
